@@ -1,0 +1,623 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>التسجيل في دوري المدارس</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap">
+
+<style>
+  /* دوري المدارس — إعلان تسجيل — أزرق ملكي وذهبي */
+  /* تخطيط: بطل عمودي ممتد + بطاقات أفقية + CTA واضح */
+  :root {
+    --navy:      #0b2545;
+    --blue:      #1565c0;
+    --sky:       #1e88e5;
+    --gold:      #f9a825;
+    --gold-pale: #fff8e1;
+    --bg:        #f0f4f9;
+    --surface:   #ffffff;
+    --text:      #0b2545;
+    --text-mid:  #3a5a82;
+    --text-soft: #7a95b0;
+    --border:    #cdd9ec;
+    --shadow:    0 4px 28px rgba(11,37,69,.1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:       #060f1e;
+      --surface:  #0d1f38;
+      --text:     #e4edf8;
+      --text-mid: #90b4d4;
+      --text-soft:#4e739a;
+      --border:   #162a46;
+      --gold-pale:#1a1200;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:       #060f1e;
+    --surface:  #0d1f38;
+    --text:     #e4edf8;
+    --text-mid: #90b4d4;
+    --text-soft:#4e739a;
+    --border:   #162a46;
+    --gold-pale:#1a1200;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    direction: rtl;
+    font-family: 'Tajawal', 'Cairo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100%;
+    padding-left:  max(0px, env(safe-area-inset-left,  0px));
+    padding-right: max(0px, env(safe-area-inset-right, 0px));
+  }
+
+  /* ══ بطل الصفحة ══ */
+  .hero {
+    background: linear-gradient(160deg, var(--navy) 0%, #0d3a7a 55%, #1052a8 100%);
+    padding: 52px max(20px, env(safe-area-inset-right, 0px)) 44px max(20px, env(safe-area-inset-left, 0px));
+    padding-block: 52px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* خطوط ديكورية خلفية */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 80%, rgba(21,101,192,.35) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 85% 20%, rgba(249,168,37,.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* كرة ديكور — canvas */
+  #ball-canvas {
+    position: absolute;
+    left: -40px;
+    bottom: -40px;
+    width: 200px;
+    height: 200px;
+    opacity: .08;
+    pointer-events: none;
+  }
+
+  #ball-canvas-r {
+    position: absolute;
+    right: -60px;
+    top: -50px;
+    width: 240px;
+    height: 240px;
+    opacity: .06;
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(249,168,37,.18);
+    border: 1px solid rgba(249,168,37,.35);
+    border-radius: 100px;
+    padding: 5px 16px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    color: var(--gold);
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(28px, 7vw, 54px);
+    line-height: 1.1;
+    color: #fff;
+    text-wrap: balance;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,.72);
+    max-width: 460px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .hero-year {
+    display: inline-block;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 8px;
+    padding: 6px 18px;
+    font-size: 13px;
+    color: rgba(255,255,255,.8);
+    font-weight: 600;
+    position: relative;
+  }
+
+  /* ══ الصحيفة الرئيسية ══ */
+  .page-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px max(16px, env(safe-area-inset-right, 0px));
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-block: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* ══ بطاقات المميزات ══ */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  @media (max-width: 540px) {
+    .features-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .feat-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+    border: 1.5px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: transform .18s, box-shadow .18s;
+  }
+
+  .feat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+
+  .feat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--blue), var(--sky));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  .feat-title {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--text);
+    text-wrap: balance;
+    line-height: 1.3;
+  }
+
+  .feat-desc {
+    font-size: 12.5px;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  /* ══ من يحق لها التسجيل ══ */
+  .eligibility {
+    background: var(--surface);
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+  }
+
+  .section-head {
+    padding: 16px 22px;
+    border-bottom: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-head .bar {
+    width: 4px;
+    height: 22px;
+    background: linear-gradient(to bottom, var(--gold), var(--blue));
+    border-radius: 2px;
+  }
+
+  .section-head h2 {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--text);
+  }
+
+  .elig-list {
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .elig-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .elig-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #e3f2fd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .elig-dot { background: #0d2a4a; }
+  }
+  :root[data-theme="dark"] .elig-dot { background: #0d2a4a; }
+
+  .elig-text strong {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .elig-text span {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  /* ══ تنبيه مهم ══ */
+  .notice-band {
+    background: var(--gold-pale);
+    border: 1.5px solid rgba(249,168,37,.4);
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .notice-band .ni { font-size: 20px; flex-shrink: 0; }
+
+  .notice-band p {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .notice-band strong { color: var(--blue); }
+
+  /* ══ كيفية التسجيل ══ */
+  .how-wrap {
+    background: var(--surface);
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+  }
+
+  .steps-list {
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .step-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding-block: 14px;
+    position: relative;
+  }
+
+  .step-row:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 13px;
+    top: 44px;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--sky));
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-content strong {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 3px;
+    color: var(--text);
+  }
+
+  .step-content span {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.6;
+  }
+
+  /* ══ CTA ══ */
+  .cta-section {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 70% 30%, rgba(249,168,37,.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(18px, 4vw, 26px);
+    margin-bottom: 8px;
+    text-wrap: balance;
+    position: relative;
+  }
+
+  .cta-section p {
+    font-size: 14px;
+    color: rgba(255,255,255,.75);
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    padding: 14px 36px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .15s;
+    box-shadow: 0 4px 20px rgba(249,168,37,.4);
+    position: relative;
+    text-decoration: none;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(249,168,37,.5);
+  }
+
+  /* ══ فوتر ══ */
+  .site-footer {
+    text-align: center;
+    padding: 20px 16px;
+    font-size: 12px;
+    color: var(--text-soft);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .feat-card:hover { transform: none; }
+    .cta-btn:hover   { transform: none; }
+  }
+</style>
+
+<!-- كرات ديكورية -->
+<canvas id="ball-canvas"></canvas>
+<canvas id="ball-canvas-r"></canvas>
+
+<!-- ══ البطل ══ -->
+<div class="hero">
+  <div class="hero-eyebrow">⚽ المدرسة الابتدائية الثانية بالقاعدة الجوية</div>
+  <h1>سجّلي في<em>دوري المدارس</em></h1>
+  <p class="hero-sub">النسخة السابعة من دوري المدارس تنطلق قريباً — اكتشفي موهبتك وكوّني جزءاً من الفريق</p>
+  <div class="hero-year">العام الدراسي ١٤٤٩ / ١٤٤٨هـ</div>
+</div>
+
+<!-- ══ المحتوى ══ -->
+<div class="page-wrap">
+
+  <!-- مميزات -->
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">👥</div>
+      <div class="feat-title">روح الفريق</div>
+      <div class="feat-desc">تعلّمي العمل الجماعي والتعاون</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🏃</div>
+      <div class="feat-title">نشاط وصحة</div>
+      <div class="feat-desc">ممارسة رياضية منظّمة ومشرفة</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🏆</div>
+      <div class="feat-title">منافسة إيجابية</div>
+      <div class="feat-desc">تنمية روح التحدّي الشريف</div>
+    </div>
+  </div>
+
+  <!-- من تستطيع التسجيل -->
+  <div class="eligibility">
+    <div class="section-head">
+      <div class="bar"></div>
+      <h2>من تستطيع التسجيل؟</h2>
+    </div>
+    <div class="elig-list">
+      <div class="elig-item">
+        <div class="elig-dot">✅</div>
+        <div class="elig-text">
+          <strong>جميع الطالبات</strong>
+          <span>التسجيل المبدئي متاح للجميع دون استثناء — سواء كنتِ راغبة في المشاركة الرياضية أو لا.</span>
+        </div>
+      </div>
+      <div class="elig-item">
+        <div class="elig-dot">🌟</div>
+        <div class="elig-text">
+          <strong>الطالبات الراغبات في المنافسة</strong>
+          <span>يُرشَّحن للمشاركة الفعلية في الدوري وفق الاستعداد والاختيار.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- تنبيه -->
+  <div class="notice-band">
+    <span class="ni">📢</span>
+    <p><strong>تنبيه مهم:</strong> التسجيل المبدئي لا يعني الالتزام بالمشاركة في المنافسات. سجّلي الآن وسيتم التواصل معكِ لاحقاً لتحديد رغبتكِ في المشاركة الفعلية.</p>
+  </div>
+
+  <!-- كيفية التسجيل -->
+  <div class="how-wrap">
+    <div class="section-head">
+      <div class="bar"></div>
+      <h2>خطوات التسجيل</h2>
+    </div>
+    <div class="steps-list">
+      <div class="step-row">
+        <div class="step-num">١</div>
+        <div class="step-content">
+          <strong>تواصلي مع رائدة النشاط</strong>
+          <span>راجعي رائدة النشاط في المدرسة للتسجيل وملء بيانات الطالبة.</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">٢</div>
+        <div class="step-content">
+          <strong>موافقة ولي الأمر</strong>
+          <span>يُكمل ولي الأمر <a href="https://claude.ai/artifact/2EZabCCymKoeEmmuu9HDwv" target="_blank" rel="noopener" style="color:var(--sky); font-weight:700; text-decoration:none;">نموذج الموافقة الرسمي ←</a> الخاص بالمشاركة في الدوري.</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">٣</div>
+        <div class="step-content">
+          <strong>الكشف الطبي</strong>
+          <span>تخضع الطالبة المرشّحة للمشاركة لكشف طبي للتأكد من لياقتها.</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">٤</div>
+        <div class="step-content">
+          <strong>انضمي للفريق! ⚽</strong>
+          <span>بعد اكتمال الإجراءات، ستكونين جزءاً رسمياً من فريق مدرستك.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>لا تفوّتي فرصة الانضمام!</h2>
+    <p>سجّلي اسمكِ مع رائدة النشاط قبل انتهاء مهلة التسجيل</p>
+    <div style="font-size:22px; margin-bottom:16px; position:relative;">⚽🏆⚽</div>
+    <a href="https://claude.ai/artifact/2EZabCCymKoeEmmuu9HDwv" target="_blank" rel="noopener" class="cta-btn" style="display:inline-block; margin-bottom:16px; position:relative;">
+      📝 نموذج موافقة ولي الأمر
+    </a>
+    <p style="font-size:13px; color:rgba(255,255,255,.65); position:relative; margin-bottom:0;">
+      كل طالبة قادرة على التميّز — بالتعاون نصنع لبناتنا مستقبلاً أجمل 💙
+    </p>
+  </div>
+
+</div>
+
+<!-- فوتر -->
+<div class="site-footer">
+  المدرسة الابتدائية الثانية بالقاعدة الجوية · إدارة تعليم الطائف · دوري المدارس ١٤٤٨/١٤٤٩هـ
+</div>
+
+<script>
+  // رسم كرة قدم بالـ Canvas
+  function drawBall(canvasId) {
+    const c = document.getElementById(canvasId);
+    if (!c) return;
+    const ctx = c.getContext('2d');
+    const W = c.width, H = c.height, R = W * 0.44;
+    const cx = W / 2, cy = H / 2;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // دائرة بيضاء
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+
+    // خماسيات بسيطة
+    const pentagons = [
+      [0, -R * 0.0],
+      [R * 0.5, -R * 0.55],
+      [-R * 0.5, -R * 0.55],
+      [R * 0.6, R * 0.3],
+      [-R * 0.6, R * 0.3],
+    ];
+
+    pentagons.forEach(([dx, dy]) => {
+      ctx.save();
+      ctx.translate(cx + dx, cy + dy);
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        const a = (i * 4 * Math.PI / 5) - Math.PI / 2;
+        const r = R * 0.22;
+        i === 0 ? ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r) : ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+      }
+      ctx.closePath();
+      ctx.fillStyle = '#1a1a2e';
+      ctx.fill();
+      ctx.restore();
+    });
+  }
+
+  drawBall('ball-canvas');
+  drawBall('ball-canvas-r');
+</script>
+
+</body></html>
